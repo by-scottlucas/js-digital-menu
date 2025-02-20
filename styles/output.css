@@ -723,11 +723,6 @@ video {
   clear: none;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
@@ -743,10 +738,6 @@ video {
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
 }
 
 .box-border {
@@ -2520,7 +2511,7 @@ body {
   width: 100%;
   --tw-bg-opacity: 1;
   background-color: rgb(24 24 27 / var(--tw-bg-opacity, 1));
-  background-image: url('/assets/bg.png');
+  background-image: url('/assets/images/bg.png');
   background-size: cover;
   background-position: center;
 }
@@ -2569,8 +2560,6 @@ body {
 .business-hour-box {
   margin-top: 1.25rem;
   border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1));
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.25rem;
@@ -2584,10 +2573,10 @@ body {
 }
 
 .menu-title {
-  margin-bottom: 1.5rem;
   margin-top: 2.25rem;
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
@@ -2595,6 +2584,10 @@ body {
 
 @media (min-width: 768px) {
   .menu-title {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
     font-size: 1.875rem;
     line-height: 2.25rem;
   }
@@ -2602,6 +2595,7 @@ body {
 
 .card-menu {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -2625,17 +2619,27 @@ body {
 }
 
 .product-image {
-  height: 7rem;
-  width: 7rem;
+  height: 8rem;
+  width: 8rem;
   border-radius: 0.375rem;
   transition-duration: 300ms;
 }
 
 .product-image:hover {
   --tw-rotate: 2deg;
-  --tw-scale-x: 1.1;
-  --tw-scale-y: 1.1;
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.product-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.product-description {
+  font-size: .9rem;
+  text-align: justify;
 }
 
 .card-footer-box {
@@ -2646,8 +2650,7 @@ body {
   gap: 0.5rem;
 }
 
-.add-cart-button {
-  border-radius: 0.25rem;
+.add-to-cart-btn {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
   padding-left: 1.5rem;

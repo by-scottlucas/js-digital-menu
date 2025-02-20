@@ -27,7 +27,7 @@ body {
 }
 
 .business-hour-box {
-  @apply bg-green-600 px-4 py-1 rounded-lg mt-5;
+  @apply px-4 py-1 rounded-lg mt-5;
 }
 
 .business-hour {
@@ -35,11 +35,11 @@ body {
 }
 
 .menu-title {
-  @apply text-2xl md:text-3xl font-bold mt-9 px-10 my-6;
+  @apply text-2xl md:text-3xl font-bold mt-9 mb-3 px-2 md:px-10 md:my-6;
 }
 
-.card-menu{
-  @apply flex gap-2;
+.card-menu {
+  @apply flex items-center gap-2;
 }
 
 .burguer-section {
@@ -47,15 +47,25 @@ body {
 }
 
 .product-image {
-  @apply w-28 h-28 rounded-md hover:scale-110 hover:rotate-2 duration-300;
+  @apply w-32 h-32 rounded-md hover:scale-95 hover:rotate-2 duration-300;
+}
+
+.product-title {
+  font-size: 1.1rem;
+  @apply font-bold;
+}
+
+.product-description {
+  font-size: .9rem;
+  text-align: justify;
 }
 
 .card-footer-box {
   @apply flex items-center gap-2 justify-between mt-3;
 }
 
-.add-cart-button {
-  @apply bg-gray-900 px-6 rounded;
+.add-to-cart-btn {
+  @apply bg-gray-900 px-6;
 }
 
 .drinks-section {

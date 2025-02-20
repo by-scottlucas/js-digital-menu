@@ -25,136 +25,18 @@
 
 <body>
     <header class="header-container">
-        <div class="header-content">
-            <img src="./assets/hamb-1.png" alt="Logotipo" class="header-logotipo">
-            <h1 class="company-name">Dev Burguer</h1>
-            <span class="company-address">Rua dev 369, São Paulo - SP</span>
-            <div class="business-hour-box" id="date-span">
-                <span class="business-hour">Segunda á Domingo - 18h às 22h</span>
-            </div>
-        </div>
+        <div class="header-content" id="header-content"></div>
     </header>
 
     <main id="menu">
         <div>
-            <h2 class="menu-title">Conheça nosso menu</h2>
-            <div class="burguer-section mt-8">
-                <div class="card-menu">
-                    <img src="./assets/hamb-1.png" alt="Hamburguer" class="product-image">
-                    <div>
-                        <p class="font-bold">Hamburguer Smash</p>
-                        <p class="text-sm">
-                            Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese
-                            da casa
-                        </p>
-
-                        <div class="card-footer-box">
-                            <p class="font-bold text-lg">R$ 18.90</p>
-
-                            <button class="add-to-cart-btn" data-name="Hamburguer Smash" data-price="18.90">
-                                <i class="fa fa-cart-plus text-sm text-white"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-menu">
-                    <img src="./assets/hamb-2.png" alt="Hamburguer Duplo" class="product-image">
-
-                    <div>
-                        <p class="font-bold">Hamburguer Duplo</p>
-                        <p class="text-sm">
-                            Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese
-                            da casa
-                        </p>
-
-                        <div class="card-footer-box">
-                            <p class="font-bold text-lg">R$ 32.90</p>
-
-                            <button class="add-to-cart-btn" data-name="Hamburguer Duplo" data-price="32.90">
-                                <i class="fa fa-cart-plus text-sm text-white"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-menu">
-                    <img src="./assets/hamb-3.png" alt="Hamburguer Salad" class="product-image">
-
-                    <div>
-                        <p class="font-bold">Hamburguer Salad</p>
-                        <p class="text-sm">
-                            Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese
-                            da casa
-                        </p>
-
-                        <div class="card-footer-box">
-                            <p class="font-bold text-lg">R$ 35.90</p>
-
-                            <button class="add-to-cart-btn" data-name="Hamburguer Salad" data-price="35.90">
-                                <i class="fa fa-cart-plus text-sm text-white"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-menu">
-                    <img src="./assets/hamb-4.png" alt="Hamburguer da Casa" class="product-image">
-
-                    <div>
-                        <p class="font-bold">Hamburguer da Casa</p>
-                        <p class="text-sm">
-                            Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese
-                            da casa
-                        </p>
-
-                        <div class="card-footer-box">
-                            <p class="font-bold text-lg">R$ 29.90</p>
-
-                            <button class="add-to-cart-btn" data-name="Hamburguer da Casa" data-price="29.90">
-                                <i class="fa fa-cart-plus text-sm text-white"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h2 class="menu-title">Lanches</h2>
+            <div class="burguer-section" id="burguer-section"></div>
         </div>
 
         <div>
             <h2 class="menu-title">Bebidas</h2>
-            <div class="drinks-section" id="menu">
-                <div class="card-menu">
-                    <img src="./assets/refri-1.png" alt="Coca-Cola Lata" class="product-image">
-
-                    <div class="w-full">
-                        <p class="font-bold">Coca-Cola Lata</p>
-
-                        <div class="card-footer-box">
-                            <p class="font-bold text-lg">R$ 6.00</p>
-
-                            <button class="add-to-cart-btn" data-name="Coca-Cola Lata" data-price="6.00">
-                                <i class="fa fa-cart-plus text-sm text-white"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-menu">
-                    <img src="./assets/refri-2.png" alt="Guaraná Lata" class="product-image">
-
-                    <div class="w-full">
-                        <p class="font-bold">Guaraná Antártica Lata</p>
-
-                        <div class="card-footer-box">
-                            <p class="font-bold text-lg">R$ 6.00</p>
-
-                            <button class="add-to-cart-btn" data-name="Guaraná Antártica Lata" data-price="6.00">
-                                <i class="fa fa-cart-plus text-sm text-white"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="drinks-section" id="drinks-section"></div>
         </div>
     </main>
 
@@ -196,7 +78,7 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="scripts/script.js"></script>
-    <script src="scripts/populateMenu.js"></script>
+    <script src="scripts/loadContentPage.js"></script>
 </body>
 
 </html>

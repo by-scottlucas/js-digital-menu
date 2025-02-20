@@ -35,14 +35,11 @@ menu.addEventListener("click", function (event) {
         const name = parentButton.getAttribute("data-name");
         const price = parseFloat(parentButton.getAttribute("data-price"));
 
-        // Adicionar no carrinho
         addToCart(name, price);
     }
 })
 
-// Função adicionar ao carrinho
 function addToCart(name, price) {
-
     const existsItem = cart.find(item => item.name === name);
 
     if (existsItem) {
@@ -54,19 +51,18 @@ function addToCart(name, price) {
             quantity: 1,
         })
     }
-
     updateCartModal();
 }
 
-// Atualiza Carrinho
 function updateCartModal() {
-
     cartItemsContainer.innerHTML = "";
     let total = 0;
 
     cart.forEach(item => {
         const cartItemElement = document.createElement("div");
-        cartItemElement.classList.add("flex", "justify-between", "mb-4", "flex-col")
+        cartItemElement.classList.add(
+            "flex", "justify-between", "mb-4", "flex-col"
+        );
 
         cartItemElement.innerHTML = `
             <div class="flex items-center justify-between">
@@ -82,22 +78,18 @@ function updateCartModal() {
         `
 
         total += item.price * item.quantity;
-
         cartItemsContainer.appendChild(cartItemElement);
     })
-
-    cartTotal.textContent = total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
+    cartTotal.textContent = total.toLocaleString(
+        "pt-BR", { style: "currency", currency: "BRL" }
+    );
     cartCounter.innerText = cart.length;
 }
 
-
 // Remover Item do carrinho
-
 cartItemsContainer.addEventListener("click", function (event) {
     if (event.target.classList.contains("remove-btn")) {
         const name = event.target.getAttribute("data-name");
-
         removeItemCart(name);
     }
 })
@@ -130,26 +122,23 @@ addressInput.addEventListener("input", function (event) {
 })
 
 checkOutBtn.addEventListener("click", function () {
-
     const isOpen = checkRestaurantOpen();
+
     if (!isOpen) {
         Toastify({
-            text: "Ops o restaurante está fechado!",
+            text: "Não é possível finalizar o pedido. O restaurante está fechado!",
             duration: 3000,
             destination: "https://github.com/apvarun/toastify-js",
             close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "center", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "#ef4444",
-            },
+            gravity: "top",
+            position: "center",
+            stopOnFocus: true,
+            style: { background: "#ef4444" },
         }).showToast();
-        
         return;
     }
 
-    if (cart.length === 0) { return; }
+    if (cart.length === 0) return;
 
     if (addressInput.value === "") {
         addressWarn.classList.remove("hidden");
@@ -167,27 +156,16 @@ checkOutBtn.addEventListener("click", function () {
     const message = encodeURIComponent(cartItems);
     const phone = "13991662339"
 
-    window.open(`https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value}`, "_blank")
+    window.open(
+        `https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value}`, "_blank"
+    );
 
     cart = [];
     updateCartModal();
-
 })
 
 function checkRestaurantOpen() {
     const data = new Date();
     const hora = data.getHours();
-
     return hora >= 18 && hora < 22;
-}
-
-const spanItem = document.getElementById("date-span")
-const isOpen = checkRestaurantOpen();
-
-if (isOpen) {
-    spanItem.classList.remove("bg-red-500");
-    spanItem.classList.add("bg-green-600")
-} else {
-    spanItem.classList.remove("bg-green-600");
-    spanItem.classList.add("bg-red-500");
 }

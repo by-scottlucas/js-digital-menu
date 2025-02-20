@@ -1,0 +1,59 @@
+{
+    "header": {
+        "logo": "./assets/images/hamb-1.png",
+        "company_name": "Dev Burguer",
+        "company_address": "Rua dev 369, São Paulo - SP",
+        "business_hours": "Segunda á Domingo - 18h às 22h"
+    },
+    "menu": {
+        "burgers": [
+            {
+                "name": "Hamburguer Smash 2",
+                "description": "Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese da casa",
+                "price": 18.90,
+                "image": "./assets/images/hamb-1.png"
+            },
+            {
+                "name": "Hamburguer Duplo",
+                "description": "Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese da casa",
+                "price": 32.90,
+                "image": "./assets/images/hamb-2.png"
+            },
+            {
+                "name": "Hamburguer Salad",
+                "description": "Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese da casa",
+                "price": 35.90,
+                "image": "./assets/images/hamb-3.png"
+            },
+            {
+                "name": "Hamburguer da Casa",
+                "description": "Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese da casa",
+                "price": 29.90,
+                "image": "./assets/images/hamb-4.png"
+            }
+        ],
+        "drinks": [
+            {
+                "name": "Coca-Cola Lata",
+                "price": 6.00,
+                "image": "./assets/images/refri-1.png"
+            },
+            {
+                "name": "Guaraná Antártica Lata",
+                "price": 6.00,
+                "image": "./assets/images/refri-2.png"
+            }
+        ]
+    },
+    "cart_modal": {
+        "title": "Meu carrinho",
+        "cart_items": [],
+        "total": "R$ 0.00",
+        "address_placeholder": "Digite seu endereço completo",
+        "checkout_button": "Finalizar Pedido"
+    },
+    "footer": {
+        "cart_button": "Veja meu carrinho",
+        "cart_count": 0
+    }
+}
