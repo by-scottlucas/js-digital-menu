@@ -72,24 +72,62 @@ body {
   @apply grid grid-cols-1 md:grid-cols-2 gap-7 md:gap-10 mx-auto max-w-7xl px-2 mb-16;
 }
 
-.cart-section {
-  @apply bg-black/60 w-full h-full fixed top-0 left-0 z-[99] items-center justify-center hidden;
+.cart-modal-container {
+  @apply fixed inset-0 z-50 bg-black bg-opacity-75 justify-center items-stretch md:items-center;
 }
 
-.cart-content {
-  @apply bg-white p-5 rounded-md min-w-[90%] md:min-w-[600px];
+.cart-modal-content {
+  @apply bg-white p-6 rounded-lg shadow-lg w-full max-w-lg overflow-y-auto h-auto md:h-[600px];
 }
 
-.cart-title {
-  @apply text-center font-bold text-2xl mb-2;
+.cart-modal-title {
+  @apply text-2xl font-semibold text-gray-800 mb-4;
 }
 
-.cart-items {
-  @apply flex justify-between mb-2 flex-col;
-  max-height: 280px;
-  overflow-y: auto;
+.cart-modal-items {
+  @apply space-y-4 max-h-60 overflow-y-auto;
 }
 
-.buy-button {
-  @apply bg-green-500 text-white px-4 py-1 rounded;
+.label-style {
+  @apply block font-bold;
+}
+
+.input-style {
+  @apply w-full border border-gray-300 rounded-lg p-2 mt-1 focus:ring-2 focus:ring-red-500 focus:outline-none;
+}
+
+.validator-message {
+  @apply text-red-500 hidden text-sm mt-1;
+}
+
+.address-dropdown {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.address-dropdown-btn {
+  @apply font-bold cursor-pointer flex justify-between items-center;
+}
+
+.address-input {
+  @apply w-full border border-gray-300 rounded-lg p-2 bg-gray-100;
+}
+
+.payment-select {
+  @apply w-full border border-gray-300 rounded-lg p-2 mt-2 bg-white;
+}
+
+.close-modal-btn {
+  @apply px-4 py-2 text-gray-600 hover:text-gray-800 outline-none;
+}
+
+.submit-button {
+  @apply bg-red-500 text-white px-6 py-2 rounded-md font-semibold shadow-sm hover:bg-red-600 transition outline-none;
+}
+
+.cart-footer-view {
+  @apply w-full bg-red-500 py-2 fixed bottom-0 z-10 flex items-center justify-center;
+}
+
+.cart-btn{
+  @apply flex items-center gap-2 text-white font-bold;
 }

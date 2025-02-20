@@ -8,7 +8,7 @@
     "menu": {
         "burgers": [
             {
-                "name": "Hamburguer Smash 2",
+                "name": "Hamburguer Smash",
                 "description": "Pão levinho de fermentação natural de trigo, burger 160g, queijo prato e maionese da casa",
                 "price": 18.90,
                 "image": "./assets/images/hamb-1.png"

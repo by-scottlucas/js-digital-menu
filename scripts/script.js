@@ -3,21 +3,27 @@ const cartBtn = document.getElementById("cart-btn");
 const cartModal = document.getElementById("cart-modal");
 const cartItemsContainer = document.getElementById("cart-items");
 const cartTotal = document.getElementById("cart-total");
+const cartTotalItems = document.getElementById("cart-total-itens");
 const checkOutBtn = document.getElementById("checkout-btn");
 const closeModalBtn = document.getElementById("close-modal-btn");
 const cartCounter = document.getElementById("cart-count");
-const addressInput = document.getElementById("address");
-const addressWarn = document.getElementById("address-warn");
+const addressWarn = document.getElementById("cep-warn");
+const paymentMethod = document.getElementById("payment-select");
+const cepInput = document.getElementById("cep");
+const streetInput = document.getElementById("street");
+const neighborhoodInput = document.getElementById("neighborhood");
+const cityInput = document.getElementById("city");
+const stateInput = document.getElementById("state");
+const numberInput = document.getElementById("number");
+const addressDropdown = document.getElementById("address-dropdown");
 
 let cart = [];
 
-// Abrir modal do carrinho
 cartBtn.addEventListener("click", function () {
     updateCartModal();
     cartModal.style.display = "flex";
-})
+});
 
-// Fechar modal ao clicar fora
 cartModal.addEventListener("click", function (event) {
     if (event.target === cartModal) {
         cartModal.style.display = "none";
@@ -28,28 +34,21 @@ closeModalBtn.addEventListener("click", function () {
     cartModal.style.display = "none";
 });
 
-menu.addEventListener("click", function (event) {
-    let parentButton = event.target.closest(".add-to-cart-btn");
-
+menu.addEventListener("click", (event) => {
+    const parentButton = event.target.closest(".add-to-cart-btn");
     if (parentButton) {
         const name = parentButton.getAttribute("data-name");
         const price = parseFloat(parentButton.getAttribute("data-price"));
-
         addToCart(name, price);
     }
-})
+});
 
 function addToCart(name, price) {
-    const existsItem = cart.find(item => item.name === name);
-
-    if (existsItem) {
-        existsItem.quantity += 1;
+    const existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.quantity += 1;
     } else {
-        cart.push({
-            name,
-            price,
-            quantity: 1,
-        })
+        cart.push({ name, price, quantity: 1 });
     }
     updateCartModal();
 }
@@ -57,115 +56,162 @@ function addToCart(name, price) {
 function updateCartModal() {
     cartItemsContainer.innerHTML = "";
     let total = 0;
+    let totalItems = 0;
 
     cart.forEach(item => {
-        const cartItemElement = document.createElement("div");
-        cartItemElement.classList.add(
-            "flex", "justify-between", "mb-4", "flex-col"
-        );
-
-        cartItemElement.innerHTML = `
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="font-medium">${item.name}</p>
-                    <p>QTD: ${item.quantity}</p>
-                    <p class="font-medium mt-2">R$ ${item.price.toFixed(2)}</p>
-                </div>
-                    
-                <button class="remove-btn" data-name="${item.name}">Remover</button>
-                
-            </div
-        `
-
+        totalItems += item.quantity;
         total += item.price * item.quantity;
+
+        const cartItemElement = document.createElement("div");
+        cartItemElement.classList.add("flex", "justify-between", "mb-4", "items-center");
+        cartItemElement.innerHTML = `
+            <div>
+                <p class="font-medium">${item.name} (x${item.quantity})</p>
+                <p class="font-medium mt-2">R$ ${(item.price * item.quantity).toFixed(2)}</p>
+            </div>
+            <button class="remove-btn text-red-500 hover:text-red-700" data-name="${item.name}">&times;</button>
+        `;
         cartItemsContainer.appendChild(cartItemElement);
-    })
-    cartTotal.textContent = total.toLocaleString(
-        "pt-BR", { style: "currency", currency: "BRL" }
-    );
+    });
+
+    cartTotal.textContent = total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     cartCounter.innerText = cart.length;
+    cartTotalItems.textContent = totalItems;
+
+    if (cart.length === 0) {
+        addressDropdown.classList.add("hidden");
+        addressDropdown.removeAttribute("open");
+    }
 }
 
-// Remover Item do carrinho
-cartItemsContainer.addEventListener("click", function (event) {
+cartItemsContainer.addEventListener("click", (event) => {
     if (event.target.classList.contains("remove-btn")) {
         const name = event.target.getAttribute("data-name");
         removeItemCart(name);
     }
-})
+});
 
 function removeItemCart(name) {
     const index = cart.findIndex(item => item.name === name);
-
     if (index !== -1) {
-        const item = cart[index];
-
-        if (item.quantity > 1) {
-            item.quantity -= 1;
-            updateCartModal();
-            return;
-        }
-
         cart.splice(index, 1);
         updateCartModal();
     }
 }
 
-addressInput.addEventListener("input", function (event) {
-    let inputValue = event.target.value;
-
-    if (inputValue !== "") {
-        addressInput.classList.remove("border-red-500");
-        addressWarn.classList.add("hidden");
+cepInput.addEventListener("blur", () => {
+    const cep = cepInput.value.replace(/\D/g, "");
+    if (cep.length !== 8) {
+        addressWarn.classList.remove("hidden");
+        addressDropdown.classList.add("hidden");
+        return;
     }
+    addressWarn.classList.add("hidden");
 
-})
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.erro) {
+                addressWarn.classList.remove("hidden");
+                addressDropdown.classList.add("hidden");
+                return;
+            }
 
-checkOutBtn.addEventListener("click", function () {
+            streetInput.value = data.logradouro || '';
+            neighborhoodInput.value = data.bairro || '';
+            cityInput.value = data.localidade || '';
+            stateInput.value = data.uf || '';
+
+            addressDropdown.classList.remove("hidden");
+            addressDropdown.setAttribute("open", "true");
+        })
+        .catch(error => {
+            console.error("Erro ao buscar CEP:", error);
+            addressWarn.classList.remove("hidden");
+            addressDropdown.classList.add("hidden");
+        });
+});
+
+checkOutBtn.addEventListener("click", () => {
     const isOpen = checkRestaurantOpen();
-
     if (!isOpen) {
-        Toastify({
-            text: "Não é possível finalizar o pedido. O restaurante está fechado!",
-            duration: 3000,
-            destination: "https://github.com/apvarun/toastify-js",
-            close: true,
-            gravity: "top",
-            position: "center",
-            stopOnFocus: true,
-            style: { background: "#ef4444" },
-        }).showToast();
+        alert("Não é possível finalizar o pedido. O restaurante está fechado!");
         return;
     }
 
     if (cart.length === 0) return;
 
-    if (addressInput.value === "") {
-        addressWarn.classList.remove("hidden");
-        addressInput.classList.add("border-red-500");
+    let isValid = true;
+    const address = {
+        street: streetInput.value.trim(),
+        number: numberInput.value.trim(),
+        neighborhood: neighborhoodInput.value.trim(),
+        city: cityInput.value.trim(),
+        state: stateInput.value.trim()
+    };
+
+    for (const key in address) {
+        if (address[key] === "") {
+            console.log(`${key.charAt(0).toUpperCase() + key.slice(1)}: NÃO PREENCHIDO`);
+            isValid = false;
+        } else {
+            console.log(`${key.charAt(0).toUpperCase() + key.slice(1)}:`, address[key]);
+        }
+    }
+
+    const cartItems = cart.map(item => ({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price
+    }));
+
+    console.log("Itens no carrinho:", cartItems);
+
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    console.log("Valor total do pedido:", total.toFixed(2));
+
+    const paymentOptions = {
+        "credit-card": "Cartão de Crédito",
+        "debit-card": "Cartão de Débito",
+        "cash": "Dinheiro",
+        "pix": "PIX"
+    };
+
+    const paymentMethodValue = paymentMethod.value;
+    const paymentMethodText = paymentOptions[paymentMethodValue] || "Forma de Pagamento Não Definida";
+
+
+    if (!isValid) {
+        alert("Por favor, preencha todos os campos e selecione um método de pagamento.");
         return;
     }
 
-    const cartItems = cart.map((item) => {
-        const total = item.price * item.quantity;
-        return (
-            `${item.name} Quantidade: (${item.quantity}) Preço: R$ ${item.price} Total R$ ${total}|`
-        )
-    }).join("");
+    const message = encodeURIComponent(`
+*Resumo do Pedido*\n\n
+${cartItems.map(item => `*${item.quantity}x* ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}`).join('\n')}\n\n
+*Endereço:* ${address.street}, ${address.number} - ${address.neighborhood} - ${address.city}, ${address.state}\n
+*Total do Pedido:* R$ ${total.toFixed(2)}\n
+*Forma de Pagamento:* ${paymentMethodText}
+`);
 
-    const message = encodeURIComponent(cartItems);
-    const phone = "13991662339"
+    const phone = "13991662339";
 
-    window.open(
-        `https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value}`, "_blank"
-    );
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
 
     cart = [];
     updateCartModal();
-})
+    cepInput.value = "";
+    streetInput.value = "";
+    numberInput.value = "";
+    neighborhoodInput.value = "";
+    cityInput.value = "";
+    stateInput.value = "";
+    paymentMethod.selectedIndex = 0;
+    addressWarn.classList.add("hidden");
+    addressDropdown.classList.add("hidden");
+});
 
 function checkRestaurantOpen() {
-    const data = new Date();
-    const hora = data.getHours();
-    return hora >= 18 && hora < 22;
+    const hora = new Date().getHours();
+    return hora >= 1 && hora < 22;
 }

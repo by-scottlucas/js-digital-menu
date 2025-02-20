@@ -40,38 +40,91 @@
         </div>
     </main>
 
-    <div class="cart-section" id="cart-modal">
-        <div class="cart-content">
-            <h2 class="cart-title">Meu carrinho</h2>
+    <div class="cart-modal-container hidden" id="cart-modal">
+        <div class="cart-modal-content">
+            <h2 class="cart-modal-title">Meu Carrinho</h2>
 
-            <div id="cart-items" class="cart-items"></div>
+            <div id="cart-items" class="cart-modal-items"></div>
 
-            <p class="font-bold">
-                Total: <span id="cart-total">R$ 0.00</span>
+            <p class="text-lg font-bold mt-4 flex justify-between">
+                <span>Total itens:</span>
+                <span id="cart-total-itens" class="text-red-500">0</span>
             </p>
 
-            <p class="font-bold">Endereço de entrega:</p>
-            <input type="text" placeholder="Digite seu endereço completo" id="address"
-                class="w-full border-2 p-1 rounded my-1">
-            <p class="text-red-500 hidden" id="address-warn">
-                Digite seu endereço completo
+            <p class="text-lg font-bold mt-3 flex justify-between">
+                <span>Total:</span>
+                <span id="cart-total" class="text-red-500">R$ 0.00</span>
             </p>
 
-            <div class="flex items-center justify-between mt-5 w-full">
-                <button id="close-modal-btn">
+            <label for="cep" class="label-style mt-4">CEP:</label>
+            <input type="text" id="cep" placeholder="Digite seu CEP" class="input-style">
+            <p class="validator-message" id="cep-warn">Digite um CEP válido</p>
+
+            <details id="address-dropdown" class="adress-dropdown mt-2 py-3 hidden open">
+                <summary class="address-dropdown-btn">
+                    Endereço
+                    <span class="text-red-500">
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </summary>
+
+                <div class="grid grid-cols-1 gap-4 mt-2">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                        <div>
+                            <label for="street" class="label-style">Rua:</label>
+                            <input type="text" id="street" class="address-input" readonly>
+                        </div>
+
+                        <div>
+                            <label for="neighborhood" class="label-style">Bairro:</label>
+                            <input type="text" id="neighborhood" class="address-input" readonly>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                        <div>
+                            <label for="city" class="label-style">Cidade:</label>
+                            <input type="text" id="city" class="address-input" readonly>
+                        </div>
+
+                        <div>
+                            <label for="state" class="label-style">Estado:</label>
+                            <input type="text" id="state" class="address-input" readonly>
+                        </div>
+
+                        <div>
+                            <label for="number" class="label-style">Número:</label>
+                            <input type="text" id="number" placeholder="Digite o número" class="input-style">
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <div id="payment-methods" class="mt-4">
+                <h3 class="font-bold">Escolha a forma de pagamento:</h3>
+                <select id="payment-select" class="payment-select">
+                    <option value="credit-card">Cartão de Crédito</option>
+                    <option value="debit-card">Cartão de Débito</option>
+                    <option value="cash">Dinheiro</option>
+                    <option value="cash">PIX</option>
+                </select>
+            </div>
+
+            <div class="flex justify-between items-center mt-6">
+                <button id="close-modal-btn" class="close-modal-btn">
                     Fechar
                 </button>
-                <button id="checkout-btn" class="buy-button">
+
+                <button type="submit" id="checkout-btn" class="submit-button">
                     Finalizar Pedido
                 </button>
             </div>
         </div>
     </div>
 
-    <footer class="w-full bg-red-500 py-2 fixed bottom-0 z-40 flex items-center justify-center">
-        <button class="flex items-center gap-2 text-white font-bold" id="cart-btn">
-            (<span id="cart-count">0</span>)
-            Veja meu carrinho
+    <footer class="cart-footer-view">
+        <button class="cart-btn" id="cart-btn">
+            (<span id="cart-count">0</span>) Ver o carrinho
             <i class="fa fa-cart-plus text-lg text-white"></i>
         </button>
     </footer>
